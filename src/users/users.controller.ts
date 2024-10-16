@@ -8,17 +8,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import {
-  ApiBadRequestResponse,
-  ApiConflictResponse,
-  ApiCreatedResponse,
-  ApiForbiddenResponse,
-  ApiNotFoundResponse,
-  ApiOkResponse,
-  ApiOperation,
-  ApiTags,
-  ApiUnauthorizedResponse,
-} from '@nestjs/swagger';
+import { ApiBearerAuth, ApiConflictResponse, ApiTags } from '@nestjs/swagger';
 
 import { CreateUserReqDto } from './dto/req/create-user-req.dto';
 import { UpdateUserReqDto } from './dto/req/update-user-req.dto';
@@ -31,15 +21,8 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @ApiForbiddenResponse({ description: 'Forbidden' })
-  @ApiNotFoundResponse({ description: 'User was not found' })
+  @ApiBearerAuth()
   @ApiConflictResponse({ description: 'Conflict' })
-  @ApiUnauthorizedResponse({ description: 'unauthorized' })
-  @ApiOperation({
-    summary: 'Create user',
-    description: 'Create new user',
-    deprecated: true,
-  })
   @Post()
   async create(@Body() createUserDto: CreateUserReqDto): Promise<UsersResDto> {
     return await this.usersService.create(createUserDto);
