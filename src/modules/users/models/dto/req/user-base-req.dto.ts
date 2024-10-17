@@ -17,8 +17,8 @@ import {
   ValidateNested,
 } from 'class-validator';
 
-import { TransformHelper } from '../../../common/helpers/transform.helper';
-import { GenderEnum } from '../enums/gender.enum';
+import { TransformHelper } from '../../../../../common/helpers/transform.helper';
+import { GenderEnum } from '../../enums/gender.enum';
 
 export class CarBaseReqDto {
   @IsString()

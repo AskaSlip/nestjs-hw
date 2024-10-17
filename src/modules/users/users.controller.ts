@@ -11,11 +11,11 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiConflictResponse, ApiTags } from '@nestjs/swagger';
 
-import { CreateUserReqDto } from './dto/req/create-user-req.dto';
-import { UpdateUserReqDto } from './dto/req/update-user-req.dto';
-import { UserListReqDto } from './dto/req/user-list-req.dto';
-import { UsersResDto } from './dto/res/user-res.dto';
-import { UsersService } from './users.service';
+import { CreateUserReqDto } from './models/dto/req/create-user-req.dto';
+import { UpdateUserReqDto } from './models/dto/req/update-user-req.dto';
+import { UserListReqDto } from './models/dto/req/user-list-req.dto';
+import { UsersResDto } from './models/dto/res/user-res.dto';
+import { UsersService } from './services/users.service';
 
 @ApiTags('Users')
 @Controller('users')

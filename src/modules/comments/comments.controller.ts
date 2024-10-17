@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { CommentsService } from './comments.service';
-import { CreateCommentDto } from './dto/create-comment.dto';
+import { CommentsService } from './services/comments.service';
+import { CreateCommentDto } from './models/dto/req/create-comment.dto';
 
 @ApiTags('Comments')
 @Controller('comments')

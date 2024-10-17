@@ -1,12 +1,18 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
-import { CreateUserReqDto } from './dto/req/create-user-req.dto';
-import { UpdateUserReqDto } from './dto/req/update-user-req.dto';
-import { UsersResDto } from './dto/res/user-res.dto';
+import { AppConfig, Config } from '../../../configs/config.type';
+import { CreateUserReqDto } from '../models/dto/req/create-user-req.dto';
+import { UpdateUserReqDto } from '../models/dto/req/update-user-req.dto';
+import { UsersResDto } from '../models/dto/res/user-res.dto';
 
 @Injectable()
 export class UsersService {
+  constructor(private readonly configService: ConfigService<Config>) {}
+
   public async create(createUserDto: CreateUserReqDto): Promise<UsersResDto> {
+    const appConfig = this.configService.get<AppConfig>('database');
+    console.log(appConfig);
     return {} as UsersResDto;
   }
 
