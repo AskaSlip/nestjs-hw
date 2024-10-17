@@ -3,7 +3,7 @@ export class UserBaseResDto {
   email: string;
   name: string;
   password: string;
-  role: string;
+  gender: string;
   age?: number;
   createdAt: Date;
   updatedAt: Date;
