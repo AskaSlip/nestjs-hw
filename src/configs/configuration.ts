@@ -23,4 +23,9 @@ export default (): Config => ({
     accessKey: process.env.AWS_S3_ACCESS_KEY,
     secretKey: process.env.AWS_S3_SECRET_KEY,
   },
+  sentry: {
+    dsn: process.env.SENTRY_DSN,
+    env: process.env.SENTRY_ENV,
+    debug: process.env.SENTRY_DEBUG === 'true',
+  },
 });
