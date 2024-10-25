@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { CommentsService } from '../../comments/services/comments.service';
+import { ArticleRepository } from '../../repository/services/acticle.repository';
 import { UsersService } from '../../users/services/users.service';
 import { CreateArticleDto } from '../models/dto/req/create-article.dto';
 import { UpdateArticleDto } from '../models/dto/req/update-article.dto';
@@ -10,6 +11,7 @@ export class ArticlesService {
   constructor(
     private readonly usersService: UsersService,
     private readonly commentsService: CommentsService,
+    private articlesRepository: ArticleRepository,
   ) {}
 
   create(dto: CreateArticleDto) {
