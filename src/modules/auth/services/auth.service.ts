@@ -47,7 +47,33 @@ export class AuthService {
   }
 
   public async signIn(dto: SignInReqDto): Promise<any> {
-    // return await this.authService.create(dto);
+    const user = await this.userRepository.findOneBy({ email: dto.email });
+    if (!user) {
+      throw new Error('User not found');
+    }
+    const isPasswordValid = await bcrypt.compare(dto.password, user.password);
+    if (!isPasswordValid) {
+      throw new Error('Invalid password');
+    }
+    const tokens = await this.tokenService.generateAuthTokens({
+      userId: user.id,
+      deviceId: dto.deviceId,
+    });
+    await Promise.all([
+      this.authCacheService.saveToken(
+        tokens.accessToken,
+        user.id,
+        dto.deviceId,
+      ),
+      this.refreshTokenRepository.save(
+        this.refreshTokenRepository.create({
+          user_id: user.id,
+          deviceId: dto.deviceId,
+          refreshToken: tokens.refreshToken,
+        }),
+      ),
+    ]);
+    return { user: UserMapper.toResDto(user), tokens };
   }
 
   private async isEmailNotExistOrThrow(email: string): Promise<void> {
