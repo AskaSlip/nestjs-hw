@@ -15,7 +15,6 @@ export class ArticlesService {
   ) {}
 
   create(dto: CreateArticleDto) {
-    this.usersService.checkAbilityToEditArticle('authorId', 'articleId');
     return 'This action adds a new article';
   }
 
