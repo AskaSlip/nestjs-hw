@@ -11,26 +11,26 @@ import { UpdateUserReqDto } from '../models/dto/req/update-user-req.dto';
 @Injectable()
 export class UsersService {
   constructor(
-    private readonly usersRepository: UserRepository,
+    private readonly userRepository: UserRepository,
     private readonly followRepository: FollowRepository,
     private readonly refreshTokenRepository: RefreshTokenRepository,
   ) {}
 
   public async findMe(userData: IUserData): Promise<UserEntity> {
-    return await this.usersRepository.findOneBy({ id: userData.userId });
+    return await this.userRepository.findOneBy({ id: userData.userId });
   }
 
   public async updateMe(
     userData: IUserData,
     dto: UpdateUserReqDto,
   ): Promise<UserEntity> {
-    const user = await this.usersRepository.findOneBy({ id: userData.userId });
-    this.usersRepository.merge(user, dto);
-    return await this.usersRepository.save(user);
+    const user = await this.userRepository.findOneBy({ id: userData.userId });
+    this.userRepository.merge(user, dto);
+    return await this.userRepository.save(user);
   }
 
   public async removeMe(userData: IUserData): Promise<void> {
-    await this.usersRepository.update(
+    await this.userRepository.update(
       { id: userData.userId },
       { deleted: new Date() },
     );
@@ -38,7 +38,7 @@ export class UsersService {
   }
 
   public async findOne(userId: UserID): Promise<UserEntity> {
-    return {} as any;
+    return await this.userRepository.findOneBy({ id: userId });
   }
 
   public async follow(userData: IUserData, userId: UserID): Promise<void> {
@@ -78,7 +78,7 @@ export class UsersService {
     });
   }
   private async isUserExistsOrThrow(userId: UserID): Promise<void> {
-    const user = await this.usersRepository.findOneBy({ id: userId });
+    const user = await this.userRepository.findOneBy({ id: userId });
     if (!user) {
       throw new ConflictException('User not found');
     }

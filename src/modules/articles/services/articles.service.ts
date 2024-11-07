@@ -8,6 +8,7 @@ import { IUserData } from '../../auth/models/interfaces/user-data.interface';
 import { ArticleRepository } from '../../repository/services/acticle.repository';
 import { TagRepository } from '../../repository/services/tag.repository';
 import { CreateArticleDto } from '../models/dto/req/create-article.dto';
+import { ListArticleQueryDto } from '../models/dto/req/list-article-query.req.dto';
 import { UpdateArticleDto } from '../models/dto/req/update-article.dto';
 
 @Injectable()
@@ -32,6 +33,13 @@ export class ArticlesService {
     );
   }
 
+  public async findAll(
+    userData: IUserData,
+    query: ListArticleQueryDto,
+  ): Promise<[ArticleEntity[], number]> {
+    return await this.articlesRepository.findAll(userData, query);
+  }
+
   public async findOne(articleId: ArticleID): Promise<ArticleEntity> {
     return {} as any;
   }
@@ -45,7 +53,7 @@ export class ArticlesService {
   }
 
   private async createTags(tags: string[]): Promise<TagEntity[]> {
-    if (!tags || tags.length) return [];
+    if (!tags || !tags.length) return [];
 
     const entities = await this.tagRepository.findBy({ name: In(tags) });
     const existingTags = entities.map((entity) => entity.name);
