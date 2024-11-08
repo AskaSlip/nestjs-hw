@@ -26,6 +26,10 @@ export type RedisConfig = {
 export type AwsConfig = {
   accessKey: string;
   secretKey: string;
+  region: string;
+  bucketName: string;
+  ACL: string;
+  endpoint: string;
 };
 export type SentryConfig = {
   dsn: string;

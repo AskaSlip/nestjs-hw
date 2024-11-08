@@ -22,6 +22,10 @@ export default (): Config => ({
   aws: {
     accessKey: process.env.AWS_S3_ACCESS_KEY,
     secretKey: process.env.AWS_S3_SECRET_KEY,
+    region: process.env.AWS_S3_REGION,
+    bucketName: process.env.AWS_S3_BUCKET_NAME,
+    ACL: process.env.AWS_S3_ACL,
+    endpoint: process.env.AWS_S3_ENDPOINT,
   },
   sentry: {
     dsn: process.env.SENTRY_DSN,
